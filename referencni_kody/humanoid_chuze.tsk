@@ -1,0 +1,45 @@
+﻿version 3.00
+cm_version 1.0
+platform CM-530
+o function faddr_src:Init
+o begin
+o // param_text:Inicializace - počáteční poloha humanoida
+o load param_dest:motion:1:50 param_src:dec_num:25
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+o // param_text:Nastavení rychlosti pohybu
+o load param_dest:motor:254:107 param_src:dec_num:30
+o end
+- 
+o function faddr_src:KrokL
+o begin
+o load param_dest:motor:18:106 param_src:position_num:462
+o wait param_src:motor:18:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:7:106 param_src:position_num:453
+o wait param_src:motor:7:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:8:106 param_src:position_num:770
+o wait param_src:motor:8:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:18:106 param_src:position_num:512
+o wait param_src:motor:18:114 lop:== param_src:bool_num:1 rop:then
+o end
+- 
+o function faddr_src:KrokP
+o begin
+o load param_dest:motor:17:106 param_src:position_num:552
+o wait param_src:motor:17:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:8:106 param_src:position_num:570
+o wait param_src:motor:8:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:7:106 param_src:position_num:253
+o wait param_src:motor:7:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:17:106 param_src:position_num:512
+o wait param_src:motor:17:114 lop:== param_src:bool_num:1 rop:then
+o end
+- 
+o main
+o begin
+o call faddr_dest:Init
+o while(1)
+o begin
+o call faddr_dest:KrokL
+o call faddr_dest:KrokP
+o end
+o end

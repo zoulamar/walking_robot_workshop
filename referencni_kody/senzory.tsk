@@ -1,0 +1,21 @@
+﻿version 3.00
+cm_version 1.0
+platform CM-530
+o main
+o begin
+o // param_text:Vyčtení hodnoty do proměnné
+o load param_dest:var:přečteno param_src:aux:1:63
+o // param_text:Použití hodnoty přímo v programu
+o if param_src:aux:1:63 lop:<= param_src:dec_num:100 rop:then
+o begin
+o // param_text:...
+o end
+- 
+o // param_text:Senzor tlesknutí - čekám na jeden tlesk.
+o load param_dest:cm:19 param_src:dec_num:0
+o wait param_src:cm:19 lop:< param_src:dec_num:1 rop:then
+o // param_text:Zahraji melodii.
+o load param_dest:cm:18 param_src:buzzertime_num:255
+o load param_dest:cm:17 param_src:melody_num:2
+o wait param_src:cm:18 lop:> param_src:dec_num:0 rop:then
+o end

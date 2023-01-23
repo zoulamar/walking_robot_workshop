@@ -1,0 +1,11 @@
+﻿version 3.00
+cm_version 1.0
+platform CM-530
+o main
+o begin
+o // param_text:Začne vykonávat přednastavený cvik.
+o load param_dest:motion:1:50 param_src:dec_num:42
+o // param_text:Program je třeba zastavit dokud není cvik dokončen.
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+- 
+o end

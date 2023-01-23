@@ -1,0 +1,21 @@
+﻿version 3.00
+cm_version 1.0
+platform CM-530
+o main
+o begin
+o // param_text:Inicializace - počáteční poloha humanoida
+o load param_dest:motion:1:50 param_src:dec_num:25
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+o // param_text:Nastavení rychlosti pohybu
+o load param_dest:motor:254:107 param_src:dec_num:50
+o // param_text:Kývání kyčlí
+o for param_var:i param_src:dec_num:0 param_src:dec_num:5
+o begin
+o load param_dest:motor:8:106 param_src:position_num:700
+o wait param_src:motor:8:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:8:106 param_src:position_num:512
+o wait param_src:motor:8:114 lop:== param_src:bool_num:1 rop:then
+o end
+o // param_text:Povolení motorů
+o load param_dest:motor:1:100 param_src:bool_num:0
+o end

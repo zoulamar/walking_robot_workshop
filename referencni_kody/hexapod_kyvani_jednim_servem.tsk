@@ -1,0 +1,24 @@
+﻿version 3.00
+cm_version 1.0
+platform CM-530
+o main
+o begin
+o // param_text:Zapnutí výkonu serv
+o load param_dest:motor:254:100 param_src:bool_num:1
+o // param_text:Nastavení rychlosti serv.
+o load param_dest:motor:254:107 param_src:dec_num:50
+o // param_text:Nastavení základní pozice robotu.
+o load param_dest:motor:254:106 param_src:position_num:512
+o load param_dest:cm:5 param_src:timer_num:16
+o wait param_src:cm:5 lop:> param_src:timer_num:0 rop:then
+o // param_text:Kývání pravým středním femurem
+o for param_var:i param_src:dec_num:0 param_src:dec_num:6
+o begin
+o load param_dest:motor:9:106 param_src:position_num:860
+o wait param_src:motor:9:114 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motor:9:106 param_src:position_num:512
+o wait param_src:motor:9:114 lop:== param_src:bool_num:1 rop:then
+o end
+o // param_text:Povolení serv - zabráníme přehřívání
+o load param_dest:motor:254:100 param_src:bool_num:0
+o end

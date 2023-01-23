@@ -1,0 +1,124 @@
+﻿version 3.00
+cm_version 1.0
+platform CM-530
+o main
+o begin
+o load param_dest:motor:254:107 param_src:dir_num:80
+o call faddr_dest:StartupMelody
+o call faddr_dest:DefaultPosture
+o while(1)
+o begin
+o call faddr_dest:MoveOneSet
+o call faddr_dest:MoveSecondSet
+o end
+- 
+o end
+- 
+o function faddr_src:StartupMelody
+o begin
+o load param_dest:cm:18 param_src:buzzertime_num:255
+o load param_dest:cm:17 param_src:melody_num:0
+o wait param_src:cm:18 lop:> param_src:buzzertime_num:0 rop:then
+o return
+o end
+- 
+o function faddr_src:DefaultPosture
+o begin
+o // param_text:Coxa
+o load param_dest:motor:7:106 param_src:dec_num:512
+o load param_dest:motor:8:106 param_src:dec_num:512
+o load param_dest:motor:14:106 param_src:position_num:400
+o load param_dest:motor:13:106 param_src:position_num:600
+o load param_dest:motor:2:106 param_src:dec_num:700
+o load param_dest:motor:1:106 param_src:dec_num:256
+- 
+- 
+o load param_dest:var:goalPosFemur param_src:dec_num:680
+o compute param_dest:var:goaPosFCW param_src:var:goalPosFemur aop:+ param_src:dec_num:0
+o compute param_dest:var:goaPosFCCW param_src:dec_num:1023 aop:- param_src:var:goalPosFemur
+- 
+o // param_text:Femur
+o load param_dest:motor:10:106 param_src:var:goaPosFCCW
+o load param_dest:motor:9:106 param_src:var:goaPosFCW
+o load param_dest:motor:15:106 param_src:var:goaPosFCW
+o load param_dest:motor:16:106 param_src:var:goaPosFCCW
+o load param_dest:motor:3:106 param_src:var:goaPosFCCW
+o load param_dest:motor:4:106 param_src:var:goaPosFCW
+- 
+o load param_dest:var:goalPosTibia param_src:dec_num:640
+o compute param_dest:var:goalPosTCW param_src:dec_num:0 aop:+ param_src:var:goalPosTibia
+o compute param_dest:var:goalPosTCCW param_src:dec_num:1023 aop:- param_src:var:goalPosTibia
+- 
+o // param_text:Tibia
+o load param_dest:motor:6:106 param_src:var:goalPosTCW
+o load param_dest:motor:11:106 param_src:var:goalPosTCW
+o load param_dest:motor:17:106 param_src:var:goalPosTCW
+o load param_dest:motor:12:106 param_src:var:goalPosTCCW
+o load param_dest:motor:5:106 param_src:var:goalPosTCCW
+o load param_dest:motor:18:106 param_src:var:goalPosTCCW
+- 
+o load param_dest:cm:5 param_src:timer_num:50
+o wait param_src:cm:5 lop:> param_src:timer_num:0 rop:then
+- 
+o end
+- 
+o function faddr_src:MoveOneSet
+o begin
+o // param_text:Femur
+o load param_dest:var:dUp param_src:dec_num:120
+o compute param_dest:motor:4:106 param_src:dec_num:680 aop:+ param_src:var:dUp
+o compute param_dest:motor:9:106 param_src:dec_num:680 aop:+ param_src:var:dUp
+o compute param_dest:motor:15:106 param_src:dec_num:680 aop:+ param_src:var:dUp
+o wait param_src:motor:15:114 lop:== param_src:bool_num:1 rop:then
+- 
+o // param_text:Second Set Coxa (Forward motion)
+o load param_dest:var:dFw param_src:dec_num:60
+o compute param_dest:motor:14:106 param_src:dec_num:400 aop:- param_src:var:dFw
+o compute param_dest:motor:8:106 param_src:dec_num:512 aop:- param_src:var:dFw
+o compute param_dest:motor:1:106 param_src:dec_num:256 aop:+ param_src:var:dFw
+o wait param_src:motor:1:114 lop:== param_src:bool_num:1 rop:then
+- 
+o // param_text:Coxa
+o load param_dest:var:dFw param_src:dec_num:120
+o compute param_dest:motor:7:106 param_src:dec_num:512 aop:- param_src:var:dFw
+o compute param_dest:motor:13:106 param_src:dec_num:600 aop:- param_src:var:dFw
+o compute param_dest:motor:2:106 param_src:dec_num:700 aop:+ param_src:var:dFw
+o wait param_src:motor:2:114 lop:== param_src:bool_num:1 rop:then
+- 
+o // param_text:Femur
+o compute param_dest:motor:4:106 param_src:dec_num:680 aop:- param_src:dec_num:0
+o compute param_dest:motor:9:106 param_src:dec_num:680 aop:- param_src:dec_num:0
+o compute param_dest:motor:15:106 param_src:dec_num:680 aop:- param_src:dec_num:0
+o wait param_src:motor:15:114 lop:== param_src:bool_num:1 rop:then
+- 
+o end
+o function faddr_src:MoveSecondSet
+o begin
+o // param_text:Femur
+o load param_dest:var:dUp param_src:dec_num:-120
+o compute param_dest:motor:10:106 param_src:dec_num:343 aop:+ param_src:var:dUp
+o compute param_dest:motor:16:106 param_src:dec_num:343 aop:+ param_src:var:dUp
+o compute param_dest:motor:3:106 param_src:dec_num:343 aop:+ param_src:var:dUp
+o wait param_src:motor:3:114 lop:== param_src:bool_num:1 rop:then
+- 
+o // param_text:Second Set Coxa (Forward motion)
+o load param_dest:var:dFw param_src:dec_num:60
+o compute param_dest:motor:7:106 param_src:dec_num:512 aop:- param_src:var:dFw
+o compute param_dest:motor:13:106 param_src:dec_num:600 aop:- param_src:var:dFw
+o compute param_dest:motor:2:106 param_src:dec_num:700 aop:- param_src:var:dFw
+o wait param_src:motor:2:114 lop:== param_src:bool_num:1 rop:then
+- 
+o // param_text:Coxa
+o load param_dest:var:dFw param_src:dec_num:0
+o compute param_dest:motor:14:106 param_src:dec_num:400 aop:- param_src:var:dFw
+o compute param_dest:motor:8:106 param_src:dec_num:512 aop:- param_src:var:dFw
+o compute param_dest:motor:1:106 param_src:dec_num:256 aop:+ param_src:var:dFw
+o wait param_src:motor:1:114 lop:== param_src:bool_num:1 rop:then
+- 
+o // param_text:Femur
+o compute param_dest:motor:10:106 param_src:dec_num:343 aop:- param_src:dec_num:0
+o compute param_dest:motor:16:106 param_src:dec_num:343 aop:- param_src:dec_num:0
+o compute param_dest:motor:3:106 param_src:dec_num:343 aop:- param_src:dec_num:0
+o wait param_src:motor:3:114 lop:== param_src:bool_num:1 rop:then
+- 
+o end
