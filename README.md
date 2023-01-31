@@ -1,6 +1,6 @@
-# Podklady pro Dílnu kráčejícíh robotů NTK 
+# Podklady pro Dílnu kráčejícíh robotů NTK
 
-Prezentace `slides.pdf` slouží pouze jako obrazová učební pomůcka, která je doplněna výkladem lektora, živými ukázkami a cvičeními na tabuli. 
+Prezentace `slides.pdf` slouží pouze jako obrazová učební pomůcka, která je doplněna výkladem lektora, živými ukázkami a cvičeními na tabuli.
 Dílna klade důraz především na aktivkní práci studentů.
 
 Referenční kódy byly vytvořeny s pomocí sady nástrojů RoboPlus od společnosti ROBOTIS, INC. 26228 Enterprise Ct. Lake Forest, CA 92630, United States of America, dostupné na `https://robotis.co.uk/software/roboplus-1-0.html`.
@@ -31,3 +31,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+Slideshow používá font "Roboto"
+
+```
+The Roboto font was used in the slideshow.
+The Roboto font is licensed under the Apache License, Version 2.0 (the "License").
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+```
