@@ -1,0 +1,143 @@
+﻿version 3.00
+cm_version 1.0
+platform CM-530
+o main
+o begin
+o // param_text:Spanek
+o load param_dest:motion:1:50 param_src:dec_num:2
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+- 
+o // param_text:Probuzeni
+o load param_dest:motion:1:50 param_src:dec_num:5
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+- 
+o while(1)
+o begin
+o if param_src:cm:2 lop:== param_src:bool_num:1 rop:then
+o begin
+o load param_dest:var:button param_src:cm:1
+o if param_src:var:button lop:== param_src:rc100z_num:1 rop:then
+o begin
+o // param_text:Pohyb vpred
+o load param_dest:motion:1:50 param_src:dec_num:11
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:4 rop:then
+o begin
+o // param_text:Pohyb vlevo
+o load param_dest:motion:1:50 param_src:dec_num:21
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motion:1:50 param_src:dec_num:22
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:8 rop:then
+o begin
+o // param_text:Pohyb vpravo
+o load param_dest:motion:1:50 param_src:dec_num:18
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+o load param_dest:motion:1:50 param_src:dec_num:19
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:2 rop:then
+o begin
+o // param_text:Pohyb vzad
+o load param_dest:motion:1:50 param_src:dec_num:15
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:513 rop:then
+o begin
+o // param_text:Rychly pohyb vpred
+o load param_dest:motion:1:50 param_src:dec_num:10
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:516 rop:then
+o begin
+o // param_text:Rychly pohyb vlevo
+o load param_dest:motion:1:50 param_src:dec_num:21
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:520 rop:then
+o begin
+o // param_text:Rychly pohyb vpravo
+o load param_dest:motion:1:50 param_src:dec_num:18
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:514 rop:then
+o begin
+o // param_text:Rychly pohyb vzad
+o load param_dest:motion:1:50 param_src:dec_num:14
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:32 rop:then
+o begin
+o // param_text:Jam
+o load param_dest:motion:1:50 param_src:dec_num:3
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:16 rop:then
+o begin
+o // param_text:Pripraven k utoku
+o load param_dest:motion:1:50 param_src:dec_num:8
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:64 rop:then
+o begin
+o // param_text:Usnout
+o load param_dest:motion:1:50 param_src:dec_num:2
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:272 rop:then
+o begin
+o // param_text:Utok!
+o load param_dest:motion:1:50 param_src:dec_num:7
+o end
+o elseif param_src:var:button lop:== param_src:rc100z_num:128 rop:then
+o begin
+o // param_text:Pokud robot spi...
+o if param_src:motion:1:50 lop:== param_src:dec_num:2 rop:then
+o begin
+o // param_text:Probuzeni (konci v zakladni poloze)
+o load param_dest:motion:1:50 param_src:dec_num:5
+o end
+o else
+o begin
+o // param_text:Zakladni poloha
+o load param_dest:motion:1:50 param_src:dec_num:4
+o end
+o end
+- 
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+o end
+o else
+o begin
+o // param_text:Pokud robot nespi...
+o if param_src:motion:1:50 lop:!= param_src:dec_num:2 rop:then
+o begin
+o // param_text:Probuzeni (konci v zakladni poloze)
+o load param_dest:motion:1:50 param_src:dec_num:4
+o end
+o else
+o begin
+o load param_dest:motion:1:50 param_src:dec_num:2
+o end
+o wait param_src:motion:1:51 lop:== param_src:bool_num:1 rop:then
+o end
+- 
+o end
+- 
+o end
+- 
+o function faddr_src:BeepRemoconID
+o begin
+o compute param_dest:var:remoconID param_src:dec_num:0 aop:+ param_src:cm:7
+o load param_dest:var:mask param_src:dec_num:16384
+o while param_src:var:mask lop:!= param_src:dec_num:0 rop:then
+o begin
+o compute param_dest:var:remoconIDBit param_src:var:remoconID aop:& param_src:var:mask
+o compute param_dest:var:mask param_src:var:mask aop:/ param_src:dec_num:2
+o if param_src:var:remoconIDBit lop:> param_src:dec_num:0 rop:then
+o begin
+o load param_dest:cm:17 param_src:scale_num:51
+o end
+o else
+o begin
+o load param_dest:cm:17 param_src:scale_num:0
+o end
+o load param_dest:cm:18 param_src:buzzertime_num:10
+o wait param_src:cm:18 lop:!= param_src:dec_num:0 rop:then
+- 
+o load param_dest:cm:5 param_src:timer_num:5
+o wait param_src:cm:5 lop:!= param_src:dec_num:0 rop:then
+o end
+o load param_dest:cm:5 param_src:timer_num:40
+o wait param_src:cm:5 lop:!= param_src:dec_num:0 rop:then
+o end
